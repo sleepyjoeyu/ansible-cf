@@ -1,0 +1,21 @@
+---
+- name: mail notification 
+  hosts: localhost
+  remote_user: root
+  vars:
+    mailmsg: The job is done successfully!
+#    gpasswd: dj96k88r
+  vars_files:
+    - vault/gmail.yml
+
+  tasks:
+  - name: send a mail
+    mail:
+      host: smtp.gmail.com
+      port: 587
+      username: sleepyjoeyu
+      password: "{{ gpasswd }}" 
+      to: Joe Yu <joyu@redhat.com>
+      subject: Important notification form Ansible
+      body: "{{ mailmsg }}"
+
